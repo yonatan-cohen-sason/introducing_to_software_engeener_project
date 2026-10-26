@@ -9,22 +9,33 @@ public final class Main {
     Scanner scanner = new Scanner(System.in);
     while (player.getHP() >0 && enemy.getHP()>0){
         System.out.print("choose an action: \n 1 - attack the enemy  \n 2 - defend \n 3 - special \n 4 - recover ");
-        int action = Integer.parseInt(scanner.nextLine());
+        String action = scanner.nextLine();
         System.out.println(action);
-        if (action == 1){
+        if (action.equals("1")){
             player.Attack(enemy);
+            if (enemy.getHP()>0){
+            enemy.Attack(player);
+        }
         // } else if (action ==2) {
         //     enemy.Attack(player);
-        } else if (action==2){
+        } else if (action.equals("2")){
             player.defend();
-        } else if (action ==3) {
-            player.special(enemy);
-        } else if (action ==4) {
-            player.recover();
+            if (enemy.getHP()>0){
+            enemy.Attack(player);
         }
-        System.out.println(""+player.getHP()+" "+enemy.getHP());
-
-
+        } else if (action.equals("3")) {
+            int enem_hp = enemy.getHP();
+            player.special(enemy);
+            if (enemy.getHP()>0 && enem_hp != enemy.getHP()){
+            enemy.Attack(player);
+        }
+        } else if (action.equals("4")) {
+            player.recover();
+            if (enemy.getHP()>0){
+            enemy.Attack(player);
+        }
+        }
+        System.out.println("enemy: " + enemy.getHP() + " player: " + player.getHP());
     }
     
 }
@@ -61,10 +72,10 @@ class player_class{
             enemy.damage(15);
         }
     }
-    public void recover(){
-        int points = 5;
-        this.resource =this.resource + points;
-    }
+    public void recover() {
+    this.resource = Math.min(this.resource + 3, 10);
+}
+    
     public int getHP() {
          return this.HP; 
         }
