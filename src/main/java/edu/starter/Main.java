@@ -1,7 +1,7 @@
 package edu.starter;
 /** Student-owned game entry point; replace this message with your own implementation. */
-
 import java.util.Scanner;
+
 public final class Main {
  public static void main(String[] args){
     enemy_class enemy = new enemy_class(30);
