@@ -16,8 +16,6 @@ public final class Main {
             if (enemy.getHP()>0){
             enemy.Attack(player);
         }
-        // } else if (action ==2) {
-        //     enemy.Attack(player);
         } else if (action.equals("2")){
             player.defend();
             if (enemy.getHP()>0){
@@ -37,6 +35,7 @@ public final class Main {
             enemy.Attack(player);
         }
         }
+        System.out.println("Player HP: " + player.getHP() + " Enemy HP: " + enemy.getHP() + " Player Resource: " + player.getres());
     }
     if (player.getHP() <= 0){
         System.out.println("You lose");
@@ -52,11 +51,10 @@ class player_class{
     private int HP;
     private int resource;
     private boolean defence;
-    private boolean pendingDefense;
     public player_class(){
          this.HP = 100;
          this.resource = 5;
-         this.pendingDefense = false;
+         this.defence = false;
     }
     public void Attack(enemy_class target){
         target.damage(10);
@@ -64,14 +62,12 @@ class player_class{
     public void damage(int dam){
         this.HP = Math.max(this.HP - dam,0);
     }
-    public boolean defend(){
+    public void defend(){
         if (this.defence == true){
             this.defence = false;
-        } else{
+        } else if (this.defence == false){
             this.defence = true;
         }
-        return this.defence;
-        
     }
     public void special(enemy_class enemy){
         if (this.resource >= 3){
@@ -90,6 +86,9 @@ class player_class{
         public int getres() {
          return this.resource; 
         }
+    public boolean getdef() {
+         return this.defence; 
+        }
 }
 
 
@@ -104,7 +103,7 @@ class enemy_class{
         this.HP = Math.max(this.HP - dam,0);
     }
     public void Attack(player_class target){
-        if (target.defend() == true){
+        if (target.getdef() == true){
             target.damage(5);
         } else {
             target.damage(10);
