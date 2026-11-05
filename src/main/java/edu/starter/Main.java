@@ -1,12 +1,38 @@
 package edu.starter;
-/** Student-owned game entry point; replace this message with your own implementation. */
 import java.util.Scanner;
 
 public final class Main {
  public static void main(String[] args){
-    enemy_class enemy = new enemy_class(30);
     player_class player = new player_class();
-    Scanner scanner = new Scanner(System.in);
+
+    Battle encounter1 = new Battle();
+    boolean first_fight = encounter1.main_battle(player, 30,10,false);
+
+    if (first_fight == true){
+
+        Battle encounter2 = new Battle();
+        boolean second_fight = encounter2.main_battle(player, 45,10,false);
+
+        if (second_fight == true){
+            System.out.println("You win!");
+        } else {
+            System.out.println("You lose!");
+        }
+    } else {
+        System.out.println("You lose!");
+    
+}
+}
+}
+
+class Battle{
+    public boolean main_battle( player_class player, int enemy_health,int resource, boolean defence){
+        if (player.getdef() == true){
+            player.defend();
+        }
+        enemy_class enemy = new enemy_class(enemy_health);
+        
+        Scanner scanner = new Scanner(System.in);
     while (player.getHP() >0 && enemy.getHP()>0){
         System.out.print("choose an action: \n 1 - attack the enemy  \n 2 - defend \n 3 - special \n 4 - recover ");
         String action = scanner.nextLine();
@@ -39,12 +65,18 @@ public final class Main {
     }
     if (player.getHP() <= 0){
         System.out.println("You lose");
+        return false;
     } else if (enemy.getHP() <= 0){
         System.out.println("You win");
+        return true;
+    } else {
+        return true;
     }
-    
+
+    }
 }
-}
+
+
 
 
 class player_class{
@@ -83,9 +115,10 @@ class player_class{
          return this.HP; 
         }
     
-        public int getres() {
+    public int getres() {
          return this.resource; 
         }
+
     public boolean getdef() {
          return this.defence; 
         }
@@ -94,7 +127,6 @@ class player_class{
 
 class enemy_class{
     private int HP;
-    private boolean defence;     
 
     public enemy_class (int health){
          this.HP = health;
