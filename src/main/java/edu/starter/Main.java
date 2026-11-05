@@ -4,15 +4,16 @@ import java.util.Scanner;
 public final class Main {
  public static void main(String[] args){
     combatant player = new combatant("Player", 100, 5, false);
-
+    Scanner scanner = new Scanner(System.in);
+    
     Battle encounter1 = new Battle();
-    boolean first_fight = encounter1.main_battle(player, 30,"a");
+    boolean first_fight = encounter1.main_battle(player, 30,"a", scanner);
 
     if (first_fight == true){
         System.out.println("next round:");
 
         Battle encounter2 = new Battle();
-        boolean second_fight = encounter2.main_battle(player, 45,"b");
+        boolean second_fight = encounter2.main_battle(player, 45,"b", scanner);
 
         if (second_fight == true){
             System.out.println("You win!");
@@ -23,13 +24,13 @@ public final class Main {
 }
 
 class Battle{
-    public boolean main_battle( combatant player, int enemy_health,String enemy_name){
+    public boolean main_battle( combatant player, int enemy_health,String enemy_name, Scanner scanner){
         if (player.getdef() == true){
             player.defend();
         }
         combatant enemy = new combatant(enemy_name, enemy_health, 0, false);
         
-        Scanner scanner = new Scanner(System.in);
+        
     while (player.getHP() >0 && enemy.getHP()>0){
         System.out.println("" + player.getname() + " HP: " + player.getHP() + " Player Resource: " + player.getres() + " " + enemy_name + " HP: " + enemy.getHP());
         System.out.print("choose an action: \n 1 - attack the enemy  \n 2 - defend \n 3 - special \n 4 - recover ");
@@ -44,18 +45,15 @@ class Battle{
             player.defend();
             if (enemy.getHP()>0){
             enemy.Attack(player);
-            player.defend();
-        }
+        } 
         } else if (action.equals("3")) {
-            int enem_hp = enemy.getHP();
-            player.special(enemy);
-            if (enemy.getHP()>0 && enem_hp != enemy.getHP()){
+            boolean special_used = player.special(enemy);
+            if (special_used && enemy.getHP()>0){
             enemy.Attack(player);
         }
         } else if (action.equals("4")) {
-            int res = player.getres();
-            player.recover();
-            if (enemy.getHP()>0 && player.getres() != res){
+            boolean recover_used = player.recover();
+            if (enemy.getHP()>0 && recover_used){
             enemy.Attack(player);
         }
         }
@@ -63,12 +61,8 @@ class Battle{
     if (player.getHP() <= 0){
         System.out.println("You lose!");
         return false;
-    } else if (enemy.getHP() <= 0){
-        return true;
-    } else {
-        return true;
     }
-
+    return true;
     }
 }
 
@@ -81,17 +75,22 @@ class combatant{
     private boolean defence;
     private String name;
     public combatant(String name, int HP, int resource, boolean defence){
-         this.HP = HP;
-         this.resource = resource;
-         this.defence = defence;
-         this.name = name;
+        if (HP<=100 && HP>=0 && resource<=10 && resource>=0 && (defence == true || defence == false) && name != null){
+            this.HP = HP;
+            this.resource = resource;
+            this.defence = defence;
+            this.name = name;
+    } else {
+        throw new IllegalArgumentException("Invalid combatant parameters");
     }
+}
     public void Attack(combatant target){
         target.damage(10);
     }
     public void damage(int dam){
         if (this.defence == true){
             this.HP = Math.max(this.HP - (dam-5),0);
+            this.defend();
         } else {
             this.HP = Math.max(this.HP - dam,0);
         }
@@ -103,14 +102,20 @@ class combatant{
             this.defence = true;
         }
     }
-    public void special(combatant enemy){
+    public boolean special(combatant enemy){
         if (this.resource >= 3){
             this.resource = this.resource - 3;
             enemy.damage(15);
+            return true;
         }
+        return false;
     }
-    public void recover() {
-    this.resource = Math.min(this.resource + 3, 10);
+    public boolean recover() {
+        if (this.resource < 10) {
+            this.resource = Math.min(this.resource + 3, 10);
+            return true;
+        }
+    return false;
 }
     
     public int getHP() {
