@@ -3,37 +3,35 @@ import java.util.Scanner;
 
 public final class Main {
  public static void main(String[] args){
-    player_class player = new player_class();
+    combatant player = new combatant("Player", 100, 5, false);
 
     Battle encounter1 = new Battle();
-    boolean first_fight = encounter1.main_battle(player, 30,10,false);
+    boolean first_fight = encounter1.main_battle(player, 30,"a");
 
     if (first_fight == true){
+        System.out.println("next round:");
 
         Battle encounter2 = new Battle();
-        boolean second_fight = encounter2.main_battle(player, 45,10,false);
+        boolean second_fight = encounter2.main_battle(player, 45,"b");
 
         if (second_fight == true){
             System.out.println("You win!");
-        } else {
-            System.out.println("You lose!");
-        }
-    } else {
-        System.out.println("You lose!");
     
+}
 }
 }
 }
 
 class Battle{
-    public boolean main_battle( player_class player, int enemy_health,int resource, boolean defence){
+    public boolean main_battle( combatant player, int enemy_health,String enemy_name){
         if (player.getdef() == true){
             player.defend();
         }
-        enemy_class enemy = new enemy_class(enemy_health);
+        combatant enemy = new combatant(enemy_name, enemy_health, 0, false);
         
         Scanner scanner = new Scanner(System.in);
     while (player.getHP() >0 && enemy.getHP()>0){
+        System.out.println("" + player.getname() + " HP: " + player.getHP() + " Player Resource: " + player.getres() + " " + enemy_name + " HP: " + enemy.getHP());
         System.out.print("choose an action: \n 1 - attack the enemy  \n 2 - defend \n 3 - special \n 4 - recover ");
         String action = scanner.nextLine();
         System.out.println(action);
@@ -61,13 +59,11 @@ class Battle{
             enemy.Attack(player);
         }
         }
-        System.out.println("Player HP: " + player.getHP() + " Enemy HP: " + enemy.getHP() + " Player Resource: " + player.getres());
     }
     if (player.getHP() <= 0){
-        System.out.println("You lose");
+        System.out.println("You lose!");
         return false;
     } else if (enemy.getHP() <= 0){
-        System.out.println("You win");
         return true;
     } else {
         return true;
@@ -79,20 +75,26 @@ class Battle{
 
 
 
-class player_class{
+class combatant{
     private int HP;
     private int resource;
     private boolean defence;
-    public player_class(){
-         this.HP = 100;
-         this.resource = 5;
-         this.defence = false;
+    private String name;
+    public combatant(String name, int HP, int resource, boolean defence){
+         this.HP = HP;
+         this.resource = resource;
+         this.defence = defence;
+         this.name = name;
     }
-    public void Attack(enemy_class target){
+    public void Attack(combatant target){
         target.damage(10);
     }
     public void damage(int dam){
-        this.HP = Math.max(this.HP - dam,0);
+        if (this.defence == true){
+            this.HP = Math.max(this.HP - (dam-5),0);
+        } else {
+            this.HP = Math.max(this.HP - dam,0);
+        }
     }
     public void defend(){
         if (this.defence == true){
@@ -101,7 +103,7 @@ class player_class{
             this.defence = true;
         }
     }
-    public void special(enemy_class enemy){
+    public void special(combatant enemy){
         if (this.resource >= 3){
             this.resource = this.resource - 3;
             enemy.damage(15);
@@ -122,29 +124,7 @@ class player_class{
     public boolean getdef() {
          return this.defence; 
         }
-}
-
-
-class enemy_class{
-    private int HP;
-
-    public enemy_class (int health){
-         this.HP = health;
-    }
-    public void damage(int dam){
-        this.HP = Math.max(this.HP - dam,0);
-    }
-    public void Attack(player_class target){
-        if (target.getdef() == true){
-            target.damage(5);
-        } else {
-            target.damage(10);
+    public String getname() {
+         return this.name; 
         }
-    }
-    public int getHP() {
-     return this.HP; 
-    }
-
-
 }
-
