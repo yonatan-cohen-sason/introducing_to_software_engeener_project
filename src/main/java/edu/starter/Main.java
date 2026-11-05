@@ -3,14 +3,15 @@ import java.util.Scanner;
 
 public final class Main {
  public static void main(String[] args){
-    combatant player = new combatant("Player", 100, 5, false);
+    System.out.println("First fight:");
+
+    Combatant player = new Combatant("Player", 100, 5, false);
     Scanner scanner = new Scanner(System.in);
-    
     Battle encounter1 = new Battle();
     boolean first_fight = encounter1.main_battle(player, 30,"a", scanner);
 
     if (first_fight == true){
-        System.out.println("next round:");
+        System.out.println("Next round, second fight:");
 
         Battle encounter2 = new Battle();
         boolean second_fight = encounter2.main_battle(player, 45,"b", scanner);
@@ -24,11 +25,11 @@ public final class Main {
 }
 
 class Battle{
-    public boolean main_battle( combatant player, int enemy_health,String enemy_name, Scanner scanner){
+    public boolean main_battle( Combatant player, int enemy_health,String enemy_name, Scanner scanner){
         if (player.getdef() == true){
             player.defend();
         }
-        combatant enemy = new combatant(enemy_name, enemy_health, 0, false);
+        Combatant enemy = new Combatant(enemy_name, enemy_health, 0, false);
         
         
     while (player.getHP() >0 && enemy.getHP()>0){
@@ -69,26 +70,26 @@ class Battle{
 
 
 
-class combatant{
+class Combatant{
     private int HP;
     private int resource;
     private boolean defence;
     private String name;
-    public combatant(String name, int HP, int resource, boolean defence){
-        if (HP<=100 && HP>=0 && resource<=10 && resource>=0 && (defence == true || defence == false) && name != null){
+    public Combatant(String name, int HP, int resource, boolean defence){
+        if (HP>=0 && resource<=10 && resource>=0  && name != null){
             this.HP = HP;
             this.resource = resource;
             this.defence = defence;
             this.name = name;
     } else {
-        throw new IllegalArgumentException("Invalid combatant parameters");
+        throw new IllegalArgumentException("Invalid Combatant parameters");
     }
 }
-    public void Attack(combatant target){
+    public void Attack(Combatant target){
         target.damage(10);
     }
     public void damage(int dam){
-        if (this.defence == true){
+        if (this.defence == true && dam >= 5){
             this.HP = Math.max(this.HP - (dam-5),0);
             this.defend();
         } else {
@@ -102,7 +103,7 @@ class combatant{
             this.defence = true;
         }
     }
-    public boolean special(combatant enemy){
+    public boolean special(Combatant enemy){
         if (this.resource >= 3){
             this.resource = this.resource - 3;
             enemy.damage(15);

@@ -1,42 +1,46 @@
-# Java Battle Game week 1
-
+# Java Battle Game week 2
 ## How to Compile
 Open the terminal in the folder thats contains the edu folder and run this command:
-javac -d . edu\starter\Main.java
+`javac -d . edu\starter\Main.java`
 
 ## How to Run
-run this command in the terminal in the folder thats contains the edu folder:
-java -cp . edu.starter.Main
+Run this command in the same folder:
+`java -cp . edu.starter.Main`
 
 ## How to Test
-For each test start a new game. The player starts with 100 HP and 5 resources, and the enemy starts with 30 HP (except for W01-RES-01).
+For each test start a new game. The player starts with 100 HP and 5 resources. The first enemy starts with 30 HP and the second enemy starts with 45 HP.
 
-Test 1 – W01-ATK-01
+Test 1 - W02-ENC-01, W02-ENC-02
 Run the game
-Enter 1 (Attack)
-Check that the enemy has 20 HP
+Enter these inputs in order: 3 -> 1 -> 1
+Check that the second fight starts with:
+Player HP = 80
+Player resources = 2
+Enemy HP = 45
 
-Test 2 – W01-DEF-01
-Run a new game
-Enter 2 (Defend)
-Check that the player has 95 HP
-
-Test 3 – W01-SPC-01
+Test 2 - W01-INV-01
 Run a new game
 Enter 3 (Special)
-Check that the enemy has 15 HP and the player has 2 resources
+Enter 3 (Special) again
+Check that the second Special doesn't work and the enemy doesn't attack:
+Player HP = 90
+Enemy HP = 15
+Player resources = 2
 
-Test 4 – W01-RES-01
-Temporarily change the player's starting resources from 5 to 9 in the player_class constructor
-Compile and run the game again
-Enter 4 (Recover)
-Check that the player's resources increase to 10, not 12
-Change the starting resources back to 5 after the test
-
-Test 5 – W01-INV-01
+Test 3 - W01-END
 Run a new game
-Enter any invalid input of your choice
-Check that the enemy does not counterattack and the game state remains unchanged:
-Player HP = 100
-Enemy HP = 30
-Player resources = 5
+Enter these inputs: 3 -> 1 -> 1
+Check that the enemy reaches 0 HP and doesn't attack again.
+
+Test 4 - Recover at maximum resource
+Run a new game
+Enter these inputs: 4 -> 4 -> 4
+Check that the resources reach 10 and the third Recover doesn't change anything or cause an enemy attack.
+
+Test 5 - TERM
+Run a new game
+Keep entering 2 (Defend) until the player reaches 0 HP.
+Check that the game prints "You lose!" and doesn't start the second fight.
+
+## More Tests
+The PDF file contains the other tests (T1-T7), the Design Note and the AI Note.
