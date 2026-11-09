@@ -1,8 +1,14 @@
-import java.util.Scanner;
 package edu.starter;
+import java.util.Scanner;
+
 
 class Battle{
     public static int player_deal_damage = 10;
+
+    /**
+     * @pre player != null && enemy_health >= 0 && enemy_name != null && scanner != null
+     * @post returns true if player wins the battle, false if player loses
+     */ 
 
     public static boolean main_battle( Combatant player, int enemy_health,String enemy_name, Scanner scanner){
         if (player.getdef() == true){
@@ -45,6 +51,11 @@ class Battle{
     return true;
     }
  
+    /**
+     * @pre (player != null && scanner != null) && battle_won == true , player inputs number
+     * @post (player.HP == Math.min(oldHP + 25, 100) && player.player_deal_damage == oldplayer_deal_damage) or (player.player_deal_damage == 12 && player.HP == oldHP)
+     */
+
     public static void reward(Combatant player, Scanner scanner){
             System.out.println("choose a reard: \n 1 - recovery \n 2 - power");
             int reward_decision = Integer.parseInt(scanner.nextLine());
