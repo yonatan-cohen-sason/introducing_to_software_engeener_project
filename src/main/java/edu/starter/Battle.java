@@ -1,7 +1,8 @@
 import java.util.Scanner;
+package edu.starter;
 
 class Battle{
-    public int player_deal_damage = 10;
+    public static int player_deal_damage = 10;
 
     public static boolean main_battle( Combatant player, int enemy_health,String enemy_name, Scanner scanner){
         if (player.getdef() == true){
@@ -48,8 +49,11 @@ class Battle{
             System.out.println("choose a reard: \n 1 - recovery \n 2 - power");
             int reward_decision = Integer.parseInt(scanner.nextLine());
             switch(reward_decision){
-                case 1 -> player.gain_health(10);
-                case 2 -> player.recover();
+                case 1 -> player.gain_health(25);
+                case 2 -> player_deal_damage = 12;
+            }
+            if (reward_decision != 1 && reward_decision != 2){
+                reward(player, scanner);
             }
     }
 }

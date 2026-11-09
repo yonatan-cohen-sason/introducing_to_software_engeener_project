@@ -1,3 +1,6 @@
+import java.util.Scanner;
+package edu.starter;
+
 class Combatant{
     private int HP;
     private int resource;
@@ -14,7 +17,7 @@ class Combatant{
     }
 }
     public Combatant(String name , int HP){
-                if (HP>=0 && resource<=10 && resource>=0  && name != null){
+                if (HP>=0 && name != null){
             this.HP = HP;
             this.resource = 0;
             this.defence = false;
@@ -23,8 +26,8 @@ class Combatant{
         throw new IllegalArgumentException("Invalid Combatant parameters");
     }
     }
-    public void Attack(Combatant target){
-        target.damage(10);
+    public void Attack(Combatant target , int deal_damage){
+        target.damage(deal_damage);
     }
     public void damage(int dam){
         if (this.defence == true && dam >= 5){

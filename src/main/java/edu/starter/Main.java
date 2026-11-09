@@ -10,8 +10,8 @@ public final class Main {
     boolean first_fight = Battle.main_battle(player, 30,"a", scanner);
 
     if (first_fight == true){
+        Battle.reward(player, scanner);
         System.out.println("Next round, second fight:");
-
         boolean second_fight = Battle.main_battle(player, 45,"b", scanner);
 
         if (second_fight == true){
