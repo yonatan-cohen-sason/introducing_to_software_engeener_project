@@ -6,12 +6,16 @@ class Combatant{
     private int resource;
     private boolean defence;
     private String name;
+    private int player_deal_damage;
+
+
     public Combatant(int HP, int resource, boolean defence){
         if (HP>=0 && resource<=10 && resource>=0  && name != null){
             this.HP = HP;
             this.resource = resource;
             this.defence = defence;
             this.name = "player";
+            this.player_deal_damage = 10;
     } else {
         throw new IllegalArgumentException("Invalid Combatant parameters");
     }
@@ -22,12 +26,13 @@ class Combatant{
             this.resource = 0;
             this.defence = false;
             this.name = name;
+            this.player_deal_damage = 10;
     } else {
         throw new IllegalArgumentException("Invalid Combatant parameters");
     }
     }
-    public void Attack(Combatant target , int deal_damage){
-        target.damage(deal_damage);
+    public void Attack(Combatant target){
+        target.damage(this.player_deal_damage);
     }
     public void damage(int dam){
         if (this.defence == true && dam >= 5){
@@ -62,6 +67,10 @@ class Combatant{
     public void gain_health(int amount) {
         this.HP = Math.min(this.HP + amount, 100);
     }
+
+    public void change_deal_damage(int new_damage) {
+        this.player_deal_damage = new_damage;
+    }
     
     public int getHP() {
          return this.HP; 
@@ -77,4 +86,7 @@ class Combatant{
     public String getname() {
          return this.name; 
         }
+    public int get_deal_damage() {
+        return this.player_deal_damage;
+    }
 }

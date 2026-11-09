@@ -17,24 +17,24 @@ class Battle{
         String action = scanner.nextLine();
         System.out.println(action);
         if (action.equals("1")){
-            player.Attack(enemy,player_deal_damage);
+            player.Attack(enemy);
             if (enemy.getHP()>0){
-            enemy.Attack(player,10);
+            enemy.Attack(player);
         }
         } else if (action.equals("2")){
             player.defend();
             if (enemy.getHP()>0){
-            enemy.Attack(player,10);
+            enemy.Attack(player);
         } 
         } else if (action.equals("3")) {
             boolean special_used = player.special(enemy);
             if (special_used && enemy.getHP()>0){
-            enemy.Attack(player,10);
+            enemy.Attack(player);
         }
         } else if (action.equals("4")) {
             boolean recover_used = player.recover();
             if (enemy.getHP()>0 && recover_used){
-            enemy.Attack(player,10);
+            enemy.Attack(player);
         }
         }
     }
@@ -50,7 +50,7 @@ class Battle{
             int reward_decision = Integer.parseInt(scanner.nextLine());
             switch(reward_decision){
                 case 1 -> player.gain_health(25);
-                case 2 -> player_deal_damage = 12;
+                case 2 -> player.change_deal_damage(12);
             }
             if (reward_decision != 1 && reward_decision != 2){
                 reward(player, scanner);
