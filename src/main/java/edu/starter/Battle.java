@@ -1,4 +1,8 @@
+import java.util.Scanner;
+
 class Battle{
+    public int player_deal_damage = 10;
+
     public static boolean main_battle( Combatant player, int enemy_health,String enemy_name, Scanner scanner){
         if (player.getdef() == true){
             player.defend();
@@ -12,24 +16,24 @@ class Battle{
         String action = scanner.nextLine();
         System.out.println(action);
         if (action.equals("1")){
-            player.Attack(enemy);
+            player.Attack(enemy,player_deal_damage);
             if (enemy.getHP()>0){
-            enemy.Attack(player);
+            enemy.Attack(player,10);
         }
         } else if (action.equals("2")){
             player.defend();
             if (enemy.getHP()>0){
-            enemy.Attack(player);
+            enemy.Attack(player,10);
         } 
         } else if (action.equals("3")) {
             boolean special_used = player.special(enemy);
             if (special_used && enemy.getHP()>0){
-            enemy.Attack(player);
+            enemy.Attack(player,10);
         }
         } else if (action.equals("4")) {
             boolean recover_used = player.recover();
             if (enemy.getHP()>0 && recover_used){
-            enemy.Attack(player);
+            enemy.Attack(player,10);
         }
         }
     }
@@ -46,7 +50,6 @@ class Battle{
             switch(reward_decision){
                 case 1 -> player.gain_health(10);
                 case 2 -> player.recover();
-                case 3 -> 
             }
     }
 }
