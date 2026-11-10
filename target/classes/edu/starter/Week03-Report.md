@@ -83,7 +83,7 @@ Player attack: 12
 ## Failure Traces
 
 ### invalid reward choice
-inputs: 3 -> 1 -> 1 -> 67
+inputs: 3 -> 1 -> 1 -> 67 -> 1
 outputs:
 First fight:
 player HP: 100 Player Resource: 5 Player attack: 10 a HP: 30
@@ -116,6 +116,14 @@ Unknown decision, try again
 choose a reward: 
  1 - recovery 
  2 - power
+2
+Next round, second fight:
+player HP: 80 Player Resource: 2 Player attack: 12 b HP: 45
+choose an action: 
+ 1 - attack the enemy  
+ 2 - defend 
+ 3 - special 
+ 4 - recover 
 
 
 
@@ -276,7 +284,7 @@ You lose!
 | T2 | HP 100, Recovery | HP 100, reward consumed | HP stayed 100, reward was consumed. PASS |
 | T3 | Attack 10, Power | Attack 12, Special 15 | Attack increased to 12, Special stayed 15. PASS |
 | T4 | Invalid input, then Power | No change on error, Power applied once | Invalid input was rejected without changing stats. Power was applied once. PASS |
-| T5 | Reward before first victory | Rejected, no change | Reward request was rejected, player stats unchanged. PASS |
+| T5 | Call reward() before winning Encounter 1 | No reward, player stats unchanged | Reward was rejected, Attack stayed 10. PASS |
 | T6 | Try to claim a second reward | Rejected, no change | Second reward request was rejected, player stats unchanged. PASS |
 | T7 | Lose Encounter 1 | No reward, no Encounter 2 | Game ended after defeat, no reward or second battle. PASS |
 | T8 | Finish Encounter 1 with HP 80, resource 2 | Values preserved unless reward changes HP | HP 80 and resource 2 carried over (before reward effects). PASS |
@@ -290,6 +298,15 @@ The Combatant class is responsible for storing and changing the player's HP, res
 
 I also used preconditions and postconditions to describe what must be true before and after calling methods. For example, the precondition of gain_health() requires the amount to be non-negative, and its postcondition describes the new HP.
 
-The Battle class manages the fights and the reward system, while Main controls the order of the two fights. After winning the first fight, Main calls unlockReward() and then reward(). The booleans rewardAvailable and rewardClaimed help prevent rewards from being given before they are unlocked or more than once.
+The `Battle` class manages the fights and the reward system, while `Main` controls the order of the two fights. When the player wins the first fight, `main_battle()` makes the reward available by setting `rewardAvailable` to true. It uses the `firstEncounter` parameter to make sure this happens only after the first fight. Then, `Main` calls `reward()`. The booleans `rewardAvailable` and `rewardClaimed` help prevent rewards from being claimed before they are available or more than once.
 
 If the player enters an invalid reward choice, the game asks again without changing the player's state. The POWER reward increases basic attack damage to 12, while Special still deals 15 damage.
+
+## AI reflection
+I asked AI to review my Java code and find possible problems with the contracts, invariants and reward system.
+
+Useful suggestion: AI suggested testing what happens if unlockReward() is called before winning the first battle. This helped me find a problem where a reward could be unlocked without winning. To fix it, I removed unlockReward() and changed main_battle() so that the reward becomes available only after winning the first encounter.
+
+Rejected suggestion: AI also pointed out a possible problem when running two different adventures in the same Java process. I decided not to add support for this because my game is designed to run only one adventure with two battles each time the program starts.
+
+Independent verification: I manually tested entering an invalid reward choice (67) and then choosing RECOVERY (1). The program displayed an error message and asked again. After choosing RECOVERY, the player's HP increased to 100, while resources stayed at 2 and Attack stayed at 10. This confirmed that an invalid choice does not change the player's state.

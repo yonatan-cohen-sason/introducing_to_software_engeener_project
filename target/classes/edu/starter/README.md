@@ -4,7 +4,7 @@ You are a fighter battling against two enemies in two different rounds.
 Your goal is to defeat both enemies before they defeat you!
 You can attack, defend, use special attacks, recover resources, and choose a reward after winning the first round to help you in the second one.
 
-the theme i chose is: CREATURE
+Theme: Creature 
 
 ## Requirements
 JDK 25 (LTS)

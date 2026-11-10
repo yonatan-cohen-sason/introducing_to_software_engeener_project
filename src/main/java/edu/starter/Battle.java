@@ -14,7 +14,7 @@ class Battle{
      * @post returns true if player wins the battle, false if player loses
      */ 
 
-    public static boolean main_battle( Combatant player, int enemy_health,String enemy_name, Scanner scanner){
+    public static boolean main_battle( Combatant player, int enemy_health,String enemy_name, Scanner scanner, boolean firstEncounter){
         if (player.getdef() == true){
             player.defend();
         }
@@ -48,19 +48,24 @@ class Battle{
         }
         }
     }
-    if (player.getHP() <= 0){
+    if (player.getHP() <= 0) {
         System.out.println("You lose!");
         return false;
     }
+
+    if (firstEncounter && !rewardClaimed) {
+        rewardAvailable = true;
+    }
+
     return true;
     }
  
 
-    public static void unlockReward() {
-    if (!rewardClaimed) {
-        rewardAvailable = true;
-    }
-}
+//     public static void unlockReward() {
+//     if (!rewardClaimed) {
+//         rewardAvailable = true;
+//     }
+// }
 
     /**
      * @pre (player != null && scanner != null) && battle_won == true; called after the first victory, before claiming a rewar
