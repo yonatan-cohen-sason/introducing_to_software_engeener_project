@@ -82,7 +82,7 @@ Player attack: 12
 
 ## Failure Traces
 
-### invalid reward choice
+### invalid reward choice - choosing 67 then 2
 inputs: 3 -> 1 -> 1 -> 67 -> 1
 outputs:
 First fight:
@@ -298,15 +298,13 @@ The Combatant class is responsible for storing and changing the player's HP, res
 
 I also used preconditions and postconditions to describe what must be true before and after calling methods. For example, the precondition of gain_health() requires the amount to be non-negative, and its postcondition describes the new HP.
 
-The `Battle` class manages the fights and the reward system, while `Main` controls the order of the two fights. When the player wins the first fight, `main_battle()` makes the reward available by setting `rewardAvailable` to true. It uses the `firstEncounter` parameter to make sure this happens only after the first fight. Then, `Main` calls `reward()`. The booleans `rewardAvailable` and `rewardClaimed` help prevent rewards from being claimed before they are available or more than once.
+The `Battle` class manages the fights and the reward system, while `Main` controls the order of the two fights. When the player wins the first fight, `main_battle()` makes the reward available. It uses the `firstEncounter` parameter to know whether this is the first battle. Then, `Main` calls `reward()` to let the player choose a reward. The booleans `rewardAvailable` and `rewardClaimed` prevent the player from claiming a reward before it becomes available or claiming more than one reward.
 
 If the player enters an invalid reward choice, the game asks again without changing the player's state. The POWER reward increases basic attack damage to 12, while Special still deals 15 damage.
 
 ## AI reflection
-I asked AI to review my Java code and find possible problems with the contracts, invariants and reward system.
+Useful suggestion: AI suggested checking what happens if unlockReward() is called before winning the first battle. This helped me find a problem where the reward could be unlocked without winning. I fixed it by removing unlockReward() and changing main_battle() to unlock the reward only after winning the first encounter.
 
-Useful suggestion: AI suggested testing what happens if unlockReward() is called before winning the first battle. This helped me find a problem where a reward could be unlocked without winning. To fix it, I removed unlockReward() and changed main_battle() so that the reward becomes available only after winning the first encounter.
+Rejected suggestion: AI suggested testing what happens when two adventures run in the same Java process. I decided not to add support for multiple adventures because my game is designed to run one adventure with two battles each time the program starts.
 
-Rejected suggestion: AI also pointed out a possible problem when running two different adventures in the same Java process. I decided not to add support for this because my game is designed to run only one adventure with two battles each time the program starts.
-
-Independent verification: I manually tested entering an invalid reward choice (67) and then choosing RECOVERY (1). The program displayed an error message and asked again. After choosing RECOVERY, the player's HP increased to 100, while resources stayed at 2 and Attack stayed at 10. This confirmed that an invalid choice does not change the player's state.
+Independent verification: I tested entering an invalid reward choice (67) and then choosing RECOVERY (1). The game displayed an error message and asked again. After choosing RECOVERY, the player's HP increased to 100, while resources remained at 2 and Attack remained at 10. This confirmed that invalid reward choices do not change the player's state.

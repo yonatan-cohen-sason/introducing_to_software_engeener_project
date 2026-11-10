@@ -9,8 +9,10 @@ Theme: Creature
 ## Requirements
 JDK 25 (LTS)
 
+
 ## How to Compile
-Open the terminal in the folder thats contains the edu folder and run this command:
+Open the terminal in the project folder and run:
+`cd src\main\java`
 `javac -d . edu\starter\Main.java`
 
 ## How to Run

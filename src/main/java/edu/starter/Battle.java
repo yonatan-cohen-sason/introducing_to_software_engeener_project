@@ -1,18 +1,21 @@
 package edu.starter;
 import java.util.Scanner;
 
-//import edu.starter.Battle.Reward;
 
 
 class Battle{
-    public static int player_deal_damage = 10;
         enum Reward {RECOVERY,POWER}
         private static boolean rewardAvailable = false;
         private static boolean rewardClaimed = false;
+    
     /**
-     * @pre player != null && enemy_health >= 0 && enemy_name != null && scanner != null
-     * @post returns true if player wins the battle, false if player loses
-     */ 
+     * @pre player != null && scanner != null &&
+     * enemy_name != null && 0 <= enemy_health && enemy_health <= 100
+     * @pre firstEncounter is true only for the first encounter
+     * @post returns true if player wins, false if player loses.
+     * A first-encounter victory makes the reward available
+     * if no reward was claimed before.
+     */
 
     public static boolean main_battle( Combatant player, int enemy_health,String enemy_name, Scanner scanner, boolean firstEncounter){
         if (player.getdef() == true){
@@ -61,18 +64,13 @@ class Battle{
     }
  
 
-//     public static void unlockReward() {
-//     if (!rewardClaimed) {
-//         rewardAvailable = true;
-//     }
-// }
-
     /**
-     * @pre (player != null && scanner != null) && battle_won == true; called after the first victory, before claiming a rewar
-     * @post (player.HP == Math.min(oldHP + 25, 100) && player.player_deal_damage == oldplayer_deal_damage) or (player.player_deal_damage == 12 && player.HP == oldHP)
+     * @pre player != null && scanner != null
+     * @post if reward is unavailable or already claimed,
+     * player state stays unchanged.
+     * Otherwise, one valid reward is applied.
+     * Invalid choices do not change player state.
      */
-
-
     public static void reward(Combatant player, Scanner scanner){
         if (!rewardAvailable || rewardClaimed) {
         return;

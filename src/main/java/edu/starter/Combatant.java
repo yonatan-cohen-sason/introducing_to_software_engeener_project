@@ -57,9 +57,11 @@ class Combatant{
     }
     }
     /**
-    * @pre true
-    * @post target.HP == Math.max(oldTarget.HP - this.player_deal_damage,0);
-    */
+     * @pre target != null
+     * @post target loses this.player_deal_damage HP,
+     * or 5 less damage if target was defending.
+     * HP never goes below 0.
+     */
     public void Attack(Combatant target){
         target.damage(this.player_deal_damage);
     }
@@ -87,8 +89,10 @@ class Combatant{
         }
     }
     /**
-     * @pre true
-     * @post this.resource == oldResource - 3; and enemy.HP == Math.max(oldenemyHP - 15,0); or this.resource == oldresource and enemy.HP == oldenemyHP;
+     * @pre enemy != null
+     * @post if oldResource >= 3, returns true,
+     * resource decreases by 3 and enemy takes 15 damage
+     * Otherwise, returns false and nothing changes.
      */
     public boolean special(Combatant enemy){
         if (this.resource >= 3){
@@ -114,14 +118,18 @@ class Combatant{
      * @post this.HP == Math.min(oldHP + amount, 100);
      */
     public void gain_health(int amount) {
-        this.HP = Math.min(this.HP + amount, 100);
+        if (amount>=0){
+            this.HP = Math.min(this.HP + amount, 100);
+        }
     }
     /**
      * @pre new_damage >= 0
      * @post this.player_deal_damage == new_damage;
      */
     public void change_deal_damage(int new_damage) {
-        this.player_deal_damage = new_damage;
+        if (new_damage >= 0) {
+            this.player_deal_damage = new_damage;
+        }
     }
     
     public int getHP() {
