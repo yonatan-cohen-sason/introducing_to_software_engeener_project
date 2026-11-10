@@ -81,11 +81,12 @@ class Battle{
                 default -> null;
             };
             if (reward_decision == null){
+                System.out.println("Unknown decision, try again");
                 continue;
             } else {
                 switch (reward_decision) {
                     case RECOVERY -> player.gain_health(25);
-                    case POWER -> player.change_deal_damage(12);
+                    case POWER -> player.change_deal_damage(player.get_deal_damage() + 2);
             }
                 rewardClaimed = true;
                 rewardAvailable = false;
