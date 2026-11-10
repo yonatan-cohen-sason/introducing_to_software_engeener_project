@@ -10,6 +10,7 @@ public final class Main {
     boolean first_fight = Battle.main_battle(player, 30,"a", scanner);
 
     if (first_fight == true){
+        System.out.println("Player status: HP-"+player.getHP()+" resources-"+player.getres()+" Attack-"+player.get_deal_damage());
         Battle.unlockReward();
         Battle.reward(player, scanner);
         System.out.println("Next round, second fight:");
