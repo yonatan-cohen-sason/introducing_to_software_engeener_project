@@ -21,40 +21,31 @@ class Combatant{
      * @post this.HP == HP
      * @post this.resource == resource
      * @post this.defence == defence
-     * @post this.player_deal_damage == 10;
-     * @post this.name.equals("player");
+     * @post this.player_deal_damage == 10
+     * @post this.name.equals("player")
      */
-    public Combatant(int HP, int resource, boolean defence){
-        if (HP>=0 && resource<=10 && resource>=0 && HP<=100){
-            this.HP = HP;
-            this.resource = resource;
-            this.defence = defence;
-            this.name = "player";
-            this.player_deal_damage = 10;
-    } else {
-        throw new IllegalArgumentException("Invalid Combatant parameters");
+    public Combatant(int HP, int resource, boolean defence) {
+        this.HP = HP;
+        this.resource = resource;
+        this.defence = defence;
+        this.name = "player";
+        this.player_deal_damage = 10;
     }
-}
-
     /**
-    * @pre HP >= 0 && HP <= 100
-    * @pre name != null
-    * @post this.HP == HP
-    * @post this.name.equals(name)
-    * @post this.defence == false
-    * @post this.resource == 0
-    * @post this.player_deal_damage == 10;
-    */
-    public Combatant(String name , int HP){
-                if (HP>=0 && name != null && HP<=100){
-            this.HP = HP;
-            this.resource = 0;
-            this.defence = false;
-            this.name = name;
-            this.player_deal_damage = 10;
-    } else {
-        throw new IllegalArgumentException("Invalid Combatant parameters");
-    }
+     * @pre 0 <= HP && HP <= 100
+     * @pre name != null
+     * @post this.HP == HP
+     * @post this.name.equals(name)
+     * @post this.defence == false
+     * @post this.resource == 0
+     * @post this.player_deal_damage == 10
+     */
+    public Combatant(String name, int HP) {
+        this.HP = HP;
+        this.resource = 0;
+        this.defence = false;
+        this.name = name;
+        this.player_deal_damage = 10;
     }
     /**
      * @pre target != null
@@ -118,18 +109,14 @@ class Combatant{
      * @post this.HP == Math.min(oldHP + amount, 100);
      */
     public void gain_health(int amount) {
-        if (amount >= 0) {
-            this.HP += Math.min(amount, 100 - this.HP);
-        }
+        this.HP += Math.min(amount, 100 - this.HP);
     }
     /**
      * @pre new_damage >= 0
      * @post this.player_deal_damage == new_damage;
      */
     public void change_deal_damage(int new_damage) {
-        if (new_damage >= 0) {
-            this.player_deal_damage = new_damage;
-        }
+        this.player_deal_damage = new_damage;
     }
     
     public int getHP() {
