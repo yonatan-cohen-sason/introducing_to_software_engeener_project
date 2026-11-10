@@ -1,5 +1,4 @@
 package edu.starter;
-import java.util.Scanner;
 
 /**
  * Class Invariants:

@@ -1,9 +1,12 @@
 package edu.starter;
 import java.util.Scanner;
 
+import edu.starter.Battle.Reward;
+
 
 class Battle{
     public static int player_deal_damage = 10;
+        enum Reward {RECOVERY,POWER}
 
     /**
      * @pre player != null && enemy_health >= 0 && enemy_name != null && scanner != null
@@ -52,19 +55,31 @@ class Battle{
     }
  
     /**
-     * @pre (player != null && scanner != null) && battle_won == true , player inputs number
+     * @pre (player != null && scanner != null) && battle_won == true; called after the first victory, before claiming a rewar
      * @post (player.HP == Math.min(oldHP + 25, 100) && player.player_deal_damage == oldplayer_deal_damage) or (player.player_deal_damage == 12 && player.HP == oldHP)
      */
 
     public static void reward(Combatant player, Scanner scanner){
-            System.out.println("choose a reard: \n 1 - recovery \n 2 - power");
-            int reward_decision = Integer.parseInt(scanner.nextLine());
-            switch(reward_decision){
-                case 1 -> player.gain_health(25);
-                case 2 -> player.change_deal_damage(12);
+        while (true){
+            System.out.println("choose a reward: \n 1 - recovery \n 2 - power");
+            String input = scanner.nextLine();
+            Reward reward_decision = switch (input) {
+                case "1" -> Reward.RECOVERY;
+                case "2" -> Reward.POWER;
+                default -> null;
+            };
+            if (reward_decision == null){
+                continue;
+            } else {
+                switch (reward_decision) {
+                    case RECOVERY -> player.gain_health(25);
+                    case POWER -> player.change_deal_damage(12);
             }
-            if (reward_decision != 1 && reward_decision != 2){
-                reward(player, scanner);
+                return;
             }
+
+
+        }
+            
     }
 }
