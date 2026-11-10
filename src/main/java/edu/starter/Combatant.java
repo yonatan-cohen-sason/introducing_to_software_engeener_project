@@ -112,14 +112,14 @@ class Combatant{
             return true;
         }
     return false;
-}
+    }
     /**
      * @pre amount >= 0
      * @post this.HP == Math.min(oldHP + amount, 100);
      */
     public void gain_health(int amount) {
-        if (amount>=0){
-            this.HP = Math.min(this.HP + amount, 100);
+        if (amount >= 0) {
+            this.HP += Math.min(amount, 100 - this.HP);
         }
     }
     /**

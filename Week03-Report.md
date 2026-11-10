@@ -83,7 +83,7 @@ Player attack: 12
 ## Failure Traces
 
 ### invalid reward choice - choosing 67 then 2
-inputs: 3 -> 1 -> 1 -> 67 -> 1
+inputs: 3 -> 1 -> 1 -> 67 -> 2
 outputs:
 First fight:
 player HP: 100 Player Resource: 5 Player attack: 10 a HP: 30
@@ -307,4 +307,4 @@ Useful suggestion: AI suggested checking what happens if unlockReward() is calle
 
 Rejected suggestion: AI suggested testing what happens when two adventures run in the same Java process. I decided not to add support for multiple adventures because my game is designed to run one adventure with two battles each time the program starts.
 
-Independent verification: I tested entering an invalid reward choice (67) and then choosing RECOVERY (1). The game displayed an error message and asked again. After choosing RECOVERY, the player's HP increased to 100, while resources remained at 2 and Attack remained at 10. This confirmed that invalid reward choices do not change the player's state.
+**Independent verification:** I tested entering an invalid reward choice (67) and then choosing POWER (2). The game displayed an error message and asked again. After choosing POWER, the player's HP stayed at 80, resources stayed at 2, and Attack increased from 10 to 12. This confirmed that the invalid choice did not change the player's state.
