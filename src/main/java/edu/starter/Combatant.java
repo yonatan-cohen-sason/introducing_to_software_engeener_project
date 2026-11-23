@@ -2,7 +2,7 @@ package edu.starter;
 
 /**
  * Class Invariants:
- * 0 <= HP && HP <= 100
+ * 0 <= HP && HP <= maxHP()
  * 0 <= resource && resource <= 10
  * name != null
  * player_deal_damage >= 0
@@ -16,13 +16,14 @@ abstract class Combatant{
     private int player_deal_damage;
 
     /**
-     * @pre 0 <= HP && HP <= 100
+     * @pre name != null
+     * @pre 0 <= HP && HP <= maxHP()
      * @pre 0 <= resource && resource <= 10
      * @post this.HP == HP
      * @post this.resource == resource
-     * @post this.defence == defence
-     * @post this.player_deal_damage == 10
-     * @post this.name.equals("player")
+     * @post this.defence == false
+     * @post this.player_deal_damage == 0
+     * @post this.name.equals(name)
      */
     protected Combatant(String name, int HP, int resource) {
         this.HP = HP;
@@ -38,8 +39,8 @@ abstract class Combatant{
 
     /**
      * @pre target != null
-     * @post target loses this.player_deal_damage HP,
-     * or 5 less damage if target was defending.
+     * @post target loses this.get_deal_damage() HP,
+     * or blockAmount() less damage if target was defending.
      * HP never goes below 0.
      */
     public void Attack(Combatant target){
@@ -47,7 +48,7 @@ abstract class Combatant{
     }
     /**
     * @pre dam>=0
-    * @post this.HP == Math.max(oldHP - (dam-5),0); or this.HP == Math.max(oldHP - dam,0);
+    * @post this.HP == Math.max(oldHP - (dam-blockAmount()),0); or this.HP == Math.max(oldHP - dam,0);
     */
     public void damage(int dam){
         if (this.defence == true && dam >= blockAmount()){
@@ -95,7 +96,7 @@ abstract class Combatant{
     }
     /**
      * @pre amount >= 0
-     * @post this.HP == Math.min(oldHP + amount, 100);
+     * @post this.HP == Math.min(oldHP + amount, maxHP());
      */
     public void gain_health(int amount) {
         this.HP += Math.min(amount, maxHP() - this.HP);
@@ -106,8 +107,8 @@ abstract class Combatant{
     }
 
     /**
-     * @pre new_damage >= 0
-     * @post this.player_deal_damage == new_damage;
+     * @pre amount >= 0
+     * @post this.player_deal_damage == oldplayer_deal_damage + amount;
      */
     public void change_deal_damage(int amount) {
         this.player_deal_damage += amount;
