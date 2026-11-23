@@ -37,22 +37,6 @@ abstract class Combatant{
     protected int blockAmount() { return 5; }
 
     /**
-     * @pre 0 <= HP && HP <= 100
-     * @pre name != null
-     * @post this.HP == HP
-     * @post this.name.equals(name)
-     * @post this.defence == false
-     * @post this.resource == 0
-     * @post this.player_deal_damage == 10
-     */
-    // public Combatant(String name, int HP) {
-    //     this.HP = HP;
-    //     this.resource = 0;
-    //     this.defence = false;
-    //     this.name = name;
-    //     this.player_deal_damage = 10;
-    // }
-    /**
      * @pre target != null
      * @post target loses this.player_deal_damage HP,
      * or 5 less damage if target was defending.
@@ -114,7 +98,7 @@ abstract class Combatant{
      * @post this.HP == Math.min(oldHP + amount, 100);
      */
     public void gain_health(int amount) {
-        this.HP += Math.min(amount, 100 - this.HP);
+        this.HP += Math.min(amount, maxHP() - this.HP);
     }
 
     public int get_deal_damage() {
