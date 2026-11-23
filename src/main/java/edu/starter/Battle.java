@@ -21,7 +21,7 @@ class Battle{
         if (player.getdef() == true){
             player.defend();
         }
-        Combatant enemy = new Combatant(enemy_name, enemy_health);
+        Combatant enemy = new Standard(enemy_name, enemy_health);
         
         
     while (player.getHP() >0 && enemy.getHP()>0){

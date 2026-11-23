@@ -1,7 +1,22 @@
 package edu.starter;
 
-public class Striker {
-    private int HP = 80;
-    private int player_deal_damage = 12;
-    private int defence = 5;
+public class Striker extends Combatant{
+    Striker() {
+        super("player", 80, 5);
+    }
+
+    @Override
+    protected int baseAttack() {
+        return 12;
+    }
+
+    @Override
+    protected int maxHP() {
+        return 80;
+    }
+
+    @Override
+    protected int blockAmount() {
+        return 5;
+    }
 }
