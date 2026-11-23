@@ -3,10 +3,13 @@ import java.util.Scanner;
 
 public final class Main {
  public static void main(String[] args){
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("choose a player: \n 1 - Standard  \n 2 - Guardian \n 3 - Striker: \n");
+    String combatant = scanner.nextLine();
     System.out.println("First fight:");
 
     Combatant player = new Combatant(100, 5, false);
-    Scanner scanner = new Scanner(System.in);
+    
     boolean first_fight = Battle.main_battle(player, 30,"a", scanner, true);
 
     if (first_fight == true){

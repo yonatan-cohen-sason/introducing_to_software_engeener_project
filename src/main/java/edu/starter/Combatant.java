@@ -8,10 +8,11 @@ package edu.starter;
  * player_deal_damage >= 0
  */
 
-class Combatant{
+abstract class Combatant{
     private int HP;
     private int resource;
     private boolean defence;
+    private int defence_damage;
     private String name;
     private int player_deal_damage;
 
@@ -24,10 +25,11 @@ class Combatant{
      * @post this.player_deal_damage == 10
      * @post this.name.equals("player")
      */
-    public Combatant(int HP, int resource, boolean defence) {
+    public Combatant(int HP, int resource, int defence_damage) {
         this.HP = HP;
         this.resource = resource;
-        this.defence = defence;
+        this.defence_damage = defence_damage;
+        this.defence = true;
         this.name = "player";
         this.player_deal_damage = 10;
     }
@@ -40,13 +42,14 @@ class Combatant{
      * @post this.resource == 0
      * @post this.player_deal_damage == 10
      */
-    public Combatant(String name, int HP) {
-        this.HP = HP;
-        this.resource = 0;
-        this.defence = false;
-        this.name = name;
-        this.player_deal_damage = 10;
-    }
+    // public Combatant(String name, int HP) {
+    //     this.HP = HP;
+    //     this.resource = 0;
+    //     this.defence = false;
+    //     this.defence_damage = 5;
+    //     this.name = name;
+    //     this.player_deal_damage = 10;
+    // }
     /**
      * @pre target != null
      * @post target loses this.player_deal_damage HP,
@@ -61,8 +64,8 @@ class Combatant{
     * @post this.HP == Math.max(oldHP - (dam-5),0); or this.HP == Math.max(oldHP - dam,0);
     */
     public void damage(int dam){
-        if (this.defence == true && dam >= 5){
-            this.HP = Math.max(this.HP - (dam-5),0);
+        if (this.defence == true && dam >= defence_damage){
+            this.HP = Math.max(this.HP - (dam-defence_damage),0);
             this.defend();
         } else {
             this.HP = Math.max(this.HP - dam,0);
@@ -135,5 +138,8 @@ class Combatant{
         }
     public int get_deal_damage() {
         return this.player_deal_damage;
+    }
+    public int get_defence_damage() {
+        return this.defence_damage;
     }
 }
