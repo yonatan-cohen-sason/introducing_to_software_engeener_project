@@ -2,8 +2,8 @@ package edu.starter;
 
 class Guardian extends Combatant {
 
-    Guardian() {
-        super("player", 130, 5);
+    Guardian(String name, int HP, int resource) {
+        super(name, HP, resource);
     }
 
     @Override
