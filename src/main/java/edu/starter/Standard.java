@@ -1,7 +1,7 @@
 package edu.starter;
 public class Standard extends Combatant {
-    Standard() {
-        super("player", 100, 5);
+    Standard(String name, int HP, int resource) {
+        super(name, HP, resource);
     }
 
     @Override
@@ -12,10 +12,5 @@ public class Standard extends Combatant {
     @Override
     protected int maxHP() {
         return 100;
-    }
-
-    @Override
-    protected int blockAmount() {
-        return 5;
     }
 }

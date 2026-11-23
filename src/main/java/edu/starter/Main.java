@@ -7,11 +7,19 @@ public final class Main {
     System.out.print("choose a player: \n 1 - Standard  \n 2 - Guardian \n 3 - Striker: \n");
     String combatant = scanner.nextLine();
     System.out.println("First fight:");
-    switch (combatant) {
-        case "1": Combatant player = new Standard(100, 5, false);
-        case "2": Combatant player = new Guardian(100, 5, false);
-        case "3": Combatant player = new Striker(100, 5, false);
-        }
+    Combatant player;           
+
+    switch (combatant) {         
+        case "2":
+            player = new Guardian("player",130,5);
+            break;
+        case "3":
+            player = new Striker("player",80,5);
+            break;
+        default:
+            player = new Standard("player", 100, 5);
+            break;
+}
     
     
     boolean first_fight = Battle.main_battle(player, 30,"a", scanner, true);
