@@ -29,7 +29,7 @@ abstract class Combatant{
         this.resource = resource;
         this.defence = false;
         this.name = name;
-        this.player_deal_damage = 10;
+        this.player_deal_damage = 0;
     }
 
     protected abstract int baseAttack();
@@ -59,7 +59,7 @@ abstract class Combatant{
      * HP never goes below 0.
      */
     public void Attack(Combatant target){
-        target.damage(this.player_deal_damage);
+        target.damage(get_deal_damage());
     }
     /**
     * @pre dam>=0
@@ -116,12 +116,17 @@ abstract class Combatant{
     public void gain_health(int amount) {
         this.HP += Math.min(amount, 100 - this.HP);
     }
+
+    public int get_deal_damage() {
+        return baseAttack() + this.player_deal_damage;
+    }
+
     /**
      * @pre new_damage >= 0
      * @post this.player_deal_damage == new_damage;
      */
-    public void change_deal_damage(int new_damage) {
-        this.player_deal_damage = new_damage;
+    public void change_deal_damage(int amount) {
+        this.player_deal_damage += amount;
     }
     
     public int getHP() {
@@ -138,7 +143,5 @@ abstract class Combatant{
     public String getname() {
          return this.name; 
         }
-    public int get_deal_damage() {
-        return this.player_deal_damage;
-    }
+
 }

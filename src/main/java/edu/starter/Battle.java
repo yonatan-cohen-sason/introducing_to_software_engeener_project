@@ -89,7 +89,7 @@ class Battle{
             } else {
                 switch (reward_decision) {
                     case RECOVERY -> player.gain_health(25);
-                    case POWER -> player.change_deal_damage(player.get_deal_damage() + 2);
+                    case POWER -> player.change_deal_damage(2);
             }
                 rewardClaimed = true;
                 rewardAvailable = false;
