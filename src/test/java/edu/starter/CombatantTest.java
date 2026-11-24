@@ -143,4 +143,59 @@ class CombatantTest {
         assertEquals(50, player.getHP());
         assertEquals(12, player.get_deal_damage());
     }
+
+
+ // boundary tests
+
+    @Test
+    void guardianHitOneLessThanHpLeavesOne(){
+        // Arrange
+        Combatant unit = new Guardian("player",5);
+
+        // Act
+        unit.damage(129);
+
+        // Assert: 130 - 129 = 1
+        assertEquals(1, unit.getHP());
+    }
+
+    @Test
+    void guardianHitExactlyHpLeavesZero(){
+        // Arrange
+        Combatant unit = new Guardian("player",5);
+
+        // Act
+        unit.damage(130);
+
+        // Assert: 130 - 130 = 0
+        assertEquals(0, unit.getHP());
+    }
+
+    @Test
+    void specialWithExactlyThreeResourceSucceeds(){
+        // Arrange
+        Combatant player = new Standard("player", 100, 3);
+        Combatant enemy = new Standard("enemy", 30);
+
+        // Act
+        boolean used = player.special(enemy);
+
+        // Assert: resource 3 - 3 = 0, enemy 30 - 15 = 15
+        assertTrue(used);
+        assertEquals(0, player.getres());
+        assertEquals(15, enemy.getHP());
+    }
+
+    @Test
+    void guardianBlocksHitSmallerThanBlockAmount(){
+        // Arrange
+        Combatant unit = new Guardian("player",5);
+
+        // Act
+        unit.defend();
+        unit.damage(5);
+
+        // Assert: Math.max(5 - 7, 0) = 0 damage, 130 - 0 = 130
+        assertEquals(130, unit.getHP());
+    }
 }
