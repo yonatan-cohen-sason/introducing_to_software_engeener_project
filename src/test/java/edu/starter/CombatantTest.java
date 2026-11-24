@@ -4,11 +4,49 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class CombatantTest {
+    @Test
+    void T01() {
+        // Arrange
+        Combatant unit = new Standard("player", 100, 5);
+
+        // Act
+
+        // Assert
+        assertEquals(100, unit.getHP());
+        assertEquals(10, unit.get_deal_damage());
+        assertEquals(5, unit.getres());
+    }
 
     @Test
-    void guardianDefenseBlocksSeven() {
+    void T02() {
         // Arrange
-        Combatant unit = new Guardian("player", 130, 5);
+        Combatant unit = new Guardian("player",5);
+
+        // Act
+
+        // Assert
+        assertEquals(130, unit.getHP());
+        assertEquals(8, unit.get_deal_damage());
+        assertEquals(5, unit.getres());
+    }
+
+    @Test
+    void T03() {
+        // Arrange
+        Combatant unit = new Striker("player",5);
+
+        // Act
+
+        // Assert
+        assertEquals(80, unit.getHP());
+        assertEquals(12, unit.get_deal_damage());
+        assertEquals(5, unit.getres());
+    }
+
+    @Test
+    void T04() {
+        // Arrange
+        Combatant unit = new Guardian("player",5);
 
         // Act
         unit.defend();
@@ -16,5 +54,18 @@ class CombatantTest {
 
         // Assert: 130 - (10 - 7) = 127
         assertEquals(127, unit.getHP());
+    }
+
+    @Test
+    void T05(){
+        // Arrange
+        Combatant unit = new Striker("player",5);
+
+        // Act
+        unit.defend();
+        unit.damage(10);
+
+        // Assert: 80 - (10 - 5) = 75
+        assertEquals(75, unit.getHP());
     }
 }

@@ -11,10 +11,10 @@ public final class Main {
 
     switch (combatant) {         
         case "2":
-            player = new Guardian("player",130,5);
+            player = new Guardian("player", 5);
             break;
         case "3":
-            player = new Striker("player",80,5);
+            player = new Striker("player", 5);
             break;
         default:
             player = new Standard("player", 100, 5);
