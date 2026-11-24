@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 class CombatantTest {
     @Test
-    void T01() {
+    void T01_NewStandardHasCorrectStats() {
         // Arrange
         Combatant unit = new Standard("player", 100, 5);
 
@@ -18,7 +18,7 @@ class CombatantTest {
     }
 
     @Test
-    void T02() {
+    void T02_NewGuardianHasCorrectStats() {
         // Arrange
         Combatant unit = new Guardian("player",5);
 
@@ -31,7 +31,7 @@ class CombatantTest {
     }
 
     @Test
-    void T03() {
+    void T03_NewStrikerHasCorrectStats() {
         // Arrange
         Combatant unit = new Striker("player",5);
 
@@ -44,7 +44,7 @@ class CombatantTest {
     }
 
     @Test
-    void T04() {
+    void   T04_GuardianDefenseBlocksSeven(){
         // Arrange
         Combatant unit = new Guardian("player",5);
 
@@ -57,7 +57,7 @@ class CombatantTest {
     }
 
     @Test
-    void T05(){
+    void T05_StrikerDefenseBlocksFive(){
         // Arrange
         Combatant unit = new Striker("player",5);
 
