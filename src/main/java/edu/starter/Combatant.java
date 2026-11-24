@@ -48,9 +48,9 @@ abstract class Combatant{
     }
     /**
     * @pre dam>=0
-    * @post this.HP == Math.max(oldHP - (dam-blockAmount()),0); or this.HP == Math.max(oldHP - dam,0);
+    * @post this.HP == Math.max(oldHP - Math.max(dam-blockAmount(),0),0) if defending; or this.HP == Math.max(oldHP - dam,0);
     */
-    public void damage(int dam){
+     public void damage(int dam){
         if (this.defence == true){
             this.HP = Math.max(this.HP - Math.max(dam - blockAmount(), 0), 0);
             this.defend();

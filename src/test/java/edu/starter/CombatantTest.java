@@ -148,7 +148,7 @@ class CombatantTest {
  // boundary tests
 
     @Test
-    void guardianHitOneLessThanHpLeavesOne(){
+    void b1_guardianHitOneLessThanHpLeavesOne(){
         // Arrange
         Combatant unit = new Guardian("player",5);
 
@@ -160,7 +160,7 @@ class CombatantTest {
     }
 
     @Test
-    void guardianHitExactlyHpLeavesZero(){
+    void b2_guardianHitExactlyHpLeavesZero(){
         // Arrange
         Combatant unit = new Guardian("player",5);
 
@@ -172,7 +172,7 @@ class CombatantTest {
     }
 
     @Test
-    void specialWithExactlyThreeResourceSucceeds(){
+    void b3_specialWithExactlyThreeResourceSucceeds(){
         // Arrange
         Combatant player = new Standard("player", 100, 3);
         Combatant enemy = new Standard("enemy", 30);
@@ -187,7 +187,7 @@ class CombatantTest {
     }
 
     @Test
-    void guardianBlocksHitSmallerThanBlockAmount(){
+    void b4_guardianBlocksHitSmallerThanBlockAmount(){
         // Arrange
         Combatant unit = new Guardian("player",5);
 
