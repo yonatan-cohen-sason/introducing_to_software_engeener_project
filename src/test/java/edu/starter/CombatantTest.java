@@ -14,7 +14,7 @@ class CombatantTest {
         // Assert
         assertEquals(100, unit.getHP());
         assertEquals(10, unit.get_deal_damage());
-        assertEquals(5, unit.getres());
+        assertEquals(5, unit.blockAmount());
     }
 
     @Test
@@ -27,7 +27,7 @@ class CombatantTest {
         // Assert
         assertEquals(130, unit.getHP());
         assertEquals(8, unit.get_deal_damage());
-        assertEquals(5, unit.getres());
+        assertEquals(7, unit.blockAmount());
     }
 
     @Test
@@ -40,7 +40,7 @@ class CombatantTest {
         // Assert
         assertEquals(80, unit.getHP());
         assertEquals(12, unit.get_deal_damage());
-        assertEquals(5, unit.getres());
+        assertEquals(5, unit.blockAmount());
     }
 
     @Test
